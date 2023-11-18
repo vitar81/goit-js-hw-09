@@ -13,6 +13,11 @@ function createPromise(position, delay) {
   });
 }
 
+const form = document.querySelector('.form');
+const delayInput = form.elements.delay;
+const stepInput = form.elements.step;
+const amountInput = form.elements.amount;
+
 form.addEventListener('submit', event => {
   event.preventDefault();
 
