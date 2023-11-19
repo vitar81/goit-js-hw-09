@@ -30,7 +30,7 @@ form.addEventListener('submit', async (event) => {
       const promiseDelay = delay + (i - 1) * step;
 
       try {
-        const result = await createPromise(position, promiseDelay);
+        const result = await createPromise(i, promiseDelay);
         console.log(`✅ Fulfilled promise ${result.position} in ${result.delay}ms`);
       } catch (error) {
         console.log(`❌ Rejected promise ${error.position} in ${error.delay}ms`);
