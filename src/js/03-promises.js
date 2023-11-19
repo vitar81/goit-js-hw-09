@@ -18,34 +18,24 @@ const delayInput = form.elements.delay;
 const stepInput = form.elements.step;
 const amountInput = form.elements.amount;
 
-form.addEventListener('submit', event => {
+form.addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const delay = Number(delayInput.value);
   const step = Number(stepInput.value);
   const amount = Number(amountInput.value);
 
-  if (delay > 0 && step > 0 && amount > 0) {
-    const promises = [];
+  if (delay >= 0 && step >= 0 && amount > 0) {
     for (let i = 1; i <= amount; i++) {
       const promiseDelay = delay + (i - 1) * step;
 
-      promises.push(createPromise(i, promiseDelay));
-    }
-
-    Promise.allSettled(promises).then(results => {
-      for (const result of results) {
-        if (result.status === 'fulfilled') {
-          console.log(
-            `✅ Fulfilled promise ${result.value.position} in ${result.value.delay}ms`
-          );
-        } else {
-          console.log(
-            `❌ Rejected promise ${result.reason.position} in ${result.reason.delay}ms`
-          );
-        }
+      try {
+        const result = await createPromise(position, promiseDelay);
+        console.log(`✅ Fulfilled promise ${result.position} in ${result.delay}ms`);
+      } catch (error) {
+        console.log(`❌ Rejected promise ${error.position} in ${error.delay}ms`);
       }
-    });
+    }
   } else {
     console.log('Please enter valid data');
   }
