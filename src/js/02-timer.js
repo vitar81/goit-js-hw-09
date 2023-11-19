@@ -1,6 +1,8 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
+const startBtn = document.querySelector('[data-start]');
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -11,16 +13,16 @@ const options = {
 
     if (selectedDate < new Date()) {
       alert('Please choose a date in the future');
-      document.querySelector('[data-start]').disabled = true;
+      startBtn.disabled = true;
     } else {
-      document.querySelector('[data-start]').disabled = false;
+      startBtn.disabled = false;
     }
   },
 };
 
 const dateTimePicker = flatpickr('#datetime-picker', options);
 
-document.querySelector('[data-start]').addEventListener('click', () => {
+startBtn.addEventListener('click', () => {
   const selectedDate = dateTimePicker.selectedDates[0];
   const currentDate = new Date();
 
